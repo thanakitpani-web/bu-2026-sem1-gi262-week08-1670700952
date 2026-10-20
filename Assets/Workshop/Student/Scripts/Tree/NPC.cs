@@ -8,9 +8,16 @@ public class NPC : Identity
     public DialogueSequen sequen;
     public bool canTalk = true;
 
+    private void Awake()
+    {
+        // DialogueSequen component is missing from the NPC in the scene, so add it here if needed
+        if (sequen == null) sequen = GetComponent<DialogueSequen>();
+        if (sequen == null) sequen = gameObject.AddComponent<DialogueSequen>();
+    }
+
     public override bool Hit()
     {
-        // ตรวจสอบว่าผู้เล่นมีไอเท็มที่ต้องการหรือไม่
+        // ๋คํ‘ญๅงฆ๋ต่์็ฆนํฐ๋ฎๅตๆ๋ฃจ์กฑๆพ๋“ค็ณปโ’์ด์ต ็จ์ฅก
         if (canTalk)
         {
             dialogueUI.Setup(sequen);
