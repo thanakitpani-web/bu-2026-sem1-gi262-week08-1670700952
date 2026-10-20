@@ -10,16 +10,16 @@ public class Skill
     public bool isAvailable;
     public List<Skill> nextSkills;
 
-        
+
     public Skill(string name)
     {
-    // 1. set the name of the skill, 
-    // initialize isUnlocked to false, 
-    // and create an empty list of nextSkills
+        // 1. set the name of the skill, 
+        // initialize isUnlocked to false, 
+        // and create an empty list of nextSkills
         this.name = name;
         isUnlocked = false;
-        isAvailable = false;
         nextSkills = new List<Skill>();
+
     }
 
     public void Unlock()
@@ -27,14 +27,13 @@ public class Skill
         if (!isAvailable)
         {
             // 2. throw an exception if the skill is not available to unlock
-            throw new System.Exception("Skill is not available to unlock: " + name);
+            throw new System.Exception("Skill is not available to unlock.");
         }
 
         if (isUnlocked)
         {
             // 3. if the skill is already unlocked, log message and return
-            Debug.Log("Skill is already unlocked: " + name);
-            return;
+            Debug.Log($"Skill {name} is already unlocked.");
         }
 
         // 4. set isUnlocked to true
@@ -52,22 +51,22 @@ public class Skill
     {
         // 6. log the name of the skill, isAvailable, and isUnlocked
         // and call PrintSkillTree() on all nextSkills
-        Debug.Log(this.name);
-        foreach (var next in nextSkills)
+        Debug.Log($"Skill: {name}, Available: {isAvailable}, Unlocked: {isUnlocked}");
+
+        for (int i = 0; i < nextSkills.Count; i++)
         {
-            next.PrintSkillTree();
+            nextSkills[i].PrintSkillTree();
         }
-        
     }
 
     public void PrintSkillTreeHierarchy(string indent)
     {
         // 7. log the name of the skill, isAvailable, and isUnlocked with indentation
         // and call PrintSkillTreeHierarchy() on all nextSkills
-        Debug.Log(indent + this.name);
-        foreach(var next in nextSkills)
+        Debug.Log($"{indent}Skill: {name}, available: {isAvailable}, unlocked: {isUnlocked}");
+        foreach (Skill skill in nextSkills)
         {
-            next.PrintSkillTreeHierarchy(indent + " ");
+            skill.PrintSkillTreeHierarchy(indent + "====");
         }
 
     }
@@ -83,4 +82,3 @@ public class SkillTree
         this.rootSkill = rootSkill;
     }
 }
-
